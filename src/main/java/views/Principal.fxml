@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.PrincipalView">
+   <top>
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Ações">
+            <items>
+                  <MenuItem fx:id="menuItemCadPessoa" mnemonicParsing="false" onAction="#menuItemCadPessoa_Action" text="Cadastrar pessoa" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemCadProduto" mnemonicParsing="false" onAction="#menuItemCadProduto_Action" text="Cadastrar produto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="menuItemDeslogar" mnemonicParsing="false" onAction="#Deslogar_Action" text="Deslogar" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <ListView fx:id="listaAcoes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="69.0" prefWidth="876.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnSair" onAction="#Sair_Action" prefHeight="25.0" prefWidth="147.0" text="Sair" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

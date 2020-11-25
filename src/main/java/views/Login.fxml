@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.LoginView">
+   <children>
+      <JFXTextField fx:id="txtDocumento" layoutX="50.0" layoutY="76.0" />
+      <JFXPasswordField fx:id="txtSenha" layoutX="50.0" layoutY="135.0" />
+      <JFXButton fx:id="btnCad" layoutX="267.0" layoutY="57.0" onAction="#cadCliente_Action" prefHeight="38.0" prefWidth="96.0" text="Cadastrar" textAlignment="CENTER" />
+      <JFXButton fx:id="btnLogar" layoutX="267.0" layoutY="129.0" onAction="#logar_Action" prefHeight="38.0" prefWidth="96.0" text="Logar" />
+      <Label layoutX="50.0" layoutY="59.0" text="Documento" />
+      <Label layoutX="50.0" layoutY="117.0" text="Senha" />
+   </children>
+</AnchorPane>
