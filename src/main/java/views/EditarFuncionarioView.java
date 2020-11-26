@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import controllers.FuncionarioController;
 import daos.FuncionarioDAO;
+import entitys.Cargo;
 import entitys.Funcionario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +26,6 @@ import utils.Alerts;
 import utils.ConexaoMySql;
 import utils.Formatacao;
 import utils.constants.ListaCargos;
-import utils.constants.ListaCargos.Cargo;
 
 public class EditarFuncionarioView implements Initializable {
 
@@ -47,8 +47,8 @@ public class EditarFuncionarioView implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cbxCargo.setItems(FXCollections.observableArrayList(new ListaCargos().getLista()));
-		for (ListaCargos.Cargo c : new ListaCargos().getLista()) {
-			if (c.getNome().equals(func.getCargo())) {
+		for (Cargo c : new ListaCargos().getLista()) {
+			if (c.getNome().equals(func.getCargo().getNome())) {
 				cbxCargo.getSelectionModel().select(c);
 			}
 		}
@@ -120,7 +120,7 @@ public class EditarFuncionarioView implements Initializable {
 	private JFXPasswordField txtConfirmarSenha;
 
 	@FXML
-	private ComboBox<ListaCargos.Cargo> cbxCargo;
+	private ComboBox<Cargo> cbxCargo;
 
 	@FXML
 	private JFXButton btnVoltar;

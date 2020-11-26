@@ -80,6 +80,10 @@ public class ListarFuncionarioView implements Initializable {
 			Alerts.alertErro("Erro ao mudar Pane", "Quando tentou trocar para o cad funcionario", e.getMessage()).showAndWait();
 		}
 	}
+	
+	private void recarregarLista() {
+		tableView.setItems(FXCollections.observableArrayList(controller.listarFuncionarios()));
+	}
 
 	private void iniciarColunas() {
 //		/cod,, nome,, doc, tel, cargo, acesso
@@ -122,7 +126,7 @@ public class ListarFuncionarioView implements Initializable {
 				new Callback<TableColumn.CellDataFeatures<Funcionario, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Funcionario, String> param) {
-						return new ReadOnlyStringWrapper(param.getValue().getCargo());
+						return new ReadOnlyStringWrapper(param.getValue().getCargo().getNome());
 					}
 				});
 
@@ -130,7 +134,7 @@ public class ListarFuncionarioView implements Initializable {
 				new Callback<TableColumn.CellDataFeatures<Funcionario, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Funcionario, String> param) {
-						return new ReadOnlyStringWrapper(param.getValue().getAcesso() + "");
+						return new ReadOnlyStringWrapper(param.getValue().getCargo().getAcesso() + "");
 					}
 				});
 
@@ -148,7 +152,8 @@ public class ListarFuncionarioView implements Initializable {
 		GenericTableButton.initButtons(cExcluir, 15, TRASH_SOLID, "svg-gray",
 				(Funcionario funcionario, ActionEvent event) -> {
 					try {
-						controller.deletarFuncionario(event, funcionario.getCod());
+						int retorno = controller.deletarFuncionario(event, funcionario.getCod());
+						recarregarLista();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import controllers.FuncionarioController;
 import daos.FuncionarioDAO;
+import entitys.Cargo;
 import entitys.Funcionario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +25,6 @@ import javafx.scene.control.TextField;
 import utils.Alerts;
 import utils.ConexaoMySql;
 import utils.constants.ListaCargos;
-import utils.constants.ListaCargos.Cargo;
 
 public class CadFuncionarioView implements Initializable {
 
@@ -107,7 +107,7 @@ public class CadFuncionarioView implements Initializable {
 	private JFXPasswordField txtConfirmarSenha;
 
 	@FXML
-	private ComboBox<ListaCargos.Cargo> cbxCargo;
+	private ComboBox<Cargo> cbxCargo;
 
 	@FXML
 	private JFXButton btnCadastrar;

@@ -54,8 +54,8 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 			resultSet.next();
 
 			statementFuncionario.setInt(1, resultSet.getInt(EnumPessoa.cod.name()));
-			statementFuncionario.setString(2, obj.getCargo());
-			statementFuncionario.setInt(3, obj.getAcesso());
+			statementFuncionario.setString(2, obj.getCargo().getNome());
+			statementFuncionario.setInt(3, obj.getCargo().getAcesso());
 
 			if (statementFuncionario.executeUpdate() != 1)
 				throw new InsertFalhouException("Não foi possivel inserir o Funcionario");
@@ -98,8 +98,8 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 				statementPessoa.setInt(5, obj.getCod());
 			}
 
-			statementFuncionario.setString(1, obj.getCargo());
-			statementFuncionario.setInt(2, obj.getAcesso());
+			statementFuncionario.setString(1, obj.getCargo().getNome());
+			statementFuncionario.setInt(2, obj.getCargo().getAcesso());
 			statementFuncionario.setInt(3, obj.getCod());
 
 			if (statementFuncionario.executeUpdate() != 1)
