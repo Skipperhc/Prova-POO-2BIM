@@ -36,4 +36,9 @@ public class Memoria extends Produto {
 	public void setFrequencia(int frequencia) {
 		this.frequencia = frequencia;
 	}
+
+	@Override
+	public Double calcularImposto() {
+		return getPreco();
+	}
 }

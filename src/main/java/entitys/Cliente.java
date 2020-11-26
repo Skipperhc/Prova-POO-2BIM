@@ -2,21 +2,18 @@ package entitys;
 
 public class Cliente extends Pessoa {
 	
-	private int acesso;
+	private int acesso = 1;
 	
 	public Cliente() {
 		super();
-		this.acesso = 1;
 	}
 
 	public Cliente(String nome, String documento, String telefone, String senha) {
 		super(nome,documento, telefone, senha);
-		this.acesso = 1;
 	}
 
 	public Cliente(int cod, String nome, String documento, String telefone, String senha) {
 		super(cod, nome,documento, telefone, senha);
-		this.acesso = 1;
 	}
 
 	@Override

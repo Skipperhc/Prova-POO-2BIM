@@ -37,4 +37,9 @@ public class PlacasDeVideo extends Produto{
 	public void setDdr(String ddr) {
 		this.ddr = ddr;
 	}
+
+	@Override
+	public Double calcularImposto() {
+		return getPreco() * 1.75;
+	}
 }

@@ -113,7 +113,7 @@ public class ProcessadorDAO implements IProcessadorDAO {
 
 	@Override
 	public int deletar(Integer cod) {
-		String sql = String.format("update from %s set %s ='N' where %s = ?", EnumProduto.produtobase, EnumProduto.ativo,
+		String sql = String.format("update %s set %s ='N' where %s = ?", EnumProduto.produtobase, EnumProduto.ativo,
 				EnumProduto.cod);
 
 		try (PreparedStatement statement = conexao.prepareStatement(sql);) {

@@ -29,6 +29,8 @@ public abstract class Produto {
 		this.preco = preco;
 	}
 	
+	public abstract Double calcularImposto();
+	
 	@Override
 	public String toString() {
 		return "Produto [cod=" + cod + ", peso=" + peso + ", nome=" + nome + ", descricao=" + descricao + ", preco="

@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 import utils.Alerts;
 import utils.ConexaoMySql;
+import utils.FormatacaoNumeros;
 import utils.GenericTableButton;
 import utils.TrocarScene;
 import utils.enums.EnumMemoria;
@@ -33,10 +34,11 @@ public class HomeView implements Initializable {
 
 	HomeController controller;
 	Connection conexao;
+	PrincipalView principalView;
 	
-	
-	public HomeView() {
+	public HomeView(PrincipalView principalView) {
 		try {
+			this.principalView = principalView;
 			conexao = ConexaoMySql.getInstance().getConnection();
 			controller = new HomeController(new ProdutoDAO(conexao));
 		} catch (Exception e) {
@@ -67,7 +69,7 @@ public class HomeView implements Initializable {
 				new Callback<TableColumn.CellDataFeatures<Produto, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Produto, String> param) {
-						return new ReadOnlyStringWrapper(String.format("R$ %s", param.getValue().getPreco()));
+						return new ReadOnlyStringWrapper(String.format("R$ %s", FormatacaoNumeros.round(param.getValue().getPreco(), 2)));
 					}
 				});
 
@@ -77,8 +79,8 @@ public class HomeView implements Initializable {
 				String path = "/views/Home.fxml";
 				if (tipo.equals(EnumProcessador.processador.name())) {
 					FXMLLoader fxml = new FXMLLoader(getClass().getResource("/views/EditarProcessador.fxml"));
-					fxml.setController(new EditarProcessadorView(produto.getCod()));
-					new TrocarScene().trocar(event, path, fxml);
+					fxml.setController(new EditarProcessadorView(principalView, produto.getCod()));
+					principalView.mudarPanePrincipal(fxml.load());
 				}
 				if (tipo.equals(EnumMemoria.memoria.name())) {
 					//TODO: trocar tela para editar Memoria
@@ -87,7 +89,7 @@ public class HomeView implements Initializable {
 					//TODO: trocar tela para editar Placa
 				}
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		});
 	}

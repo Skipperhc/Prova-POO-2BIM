@@ -58,7 +58,7 @@ public class ClienteDAO implements IClienteDAO {
 			statementCliente.setInt(2, obj.getAcesso());
 
 			if (statementCliente.executeUpdate() != 1)
-				throw new InsertFalhouException("Não foi possivel inserir a Cliente");
+				throw new InsertFalhouException("Não foi possivel inserir o Cliente");
 
 			return 1;
 		} catch (SQLException sqlException) {
@@ -93,10 +93,10 @@ public class ClienteDAO implements IClienteDAO {
 			statementCliente.setInt(2, obj.getCod());
 
 			if (statementCliente.executeUpdate() != 1)
-				throw new InsertFalhouException("Não foi possivel inserir a Cliente");
+				throw new InsertFalhouException("Não foi possivel inserir o Cliente");
 
 			if (statementPessoa.executeUpdate() != 1)
-				throw new InsertFalhouException("Não foi possivel inserir a Cliente");
+				throw new InsertFalhouException("Não foi possivel inserir o Cliente");
 
 			return 1;
 		} catch (SQLException sqlException) {
@@ -117,7 +117,7 @@ public class ClienteDAO implements IClienteDAO {
 			statement.setInt(1, cod);
 
 			if (statement.executeUpdate() != 1)
-				throw new InsertFalhouException("Não foi possivel inserir a Cliente");
+				throw new InsertFalhouException("Não foi possivel inserir o Cliente");
 
 			return 1;
 		} catch (SQLException sqlException) {

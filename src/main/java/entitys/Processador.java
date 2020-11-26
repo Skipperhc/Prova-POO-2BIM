@@ -37,4 +37,9 @@ public class Processador extends Produto{
 	public void setThreads(int threads) {
 		this.threads = threads;
 	}
+
+	@Override
+	public Double calcularImposto() {
+		return getPreco() * 1.35;
+	}
 }

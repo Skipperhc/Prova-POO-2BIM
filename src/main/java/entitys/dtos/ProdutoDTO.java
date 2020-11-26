@@ -14,4 +14,9 @@ public class ProdutoDTO extends Produto {
 	public ProdutoDTO(int cod, Double peso, String nome, String descricao, Double preco) {
 		super(cod, peso, nome, descricao, preco);
 	}
+
+	@Override
+	public Double calcularImposto() {
+		return getPreco();
+	}
 }

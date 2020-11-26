@@ -6,8 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="246.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CadClienteView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="407.0" prefWidth="246.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.CadClienteView">
    <children>
       <JFXTextField fx:id="txtNome" layoutX="54.0" layoutY="57.0" />
       <JFXTextField fx:id="txtDocumento" layoutX="54.0" layoutY="121.0" />
@@ -17,7 +16,8 @@
       <Label layoutX="54.0" layoutY="183.0" text="Telefone" />
       <JFXPasswordField fx:id="txtSenha" layoutX="52.0" layoutY="259.0" />
       <Label layoutX="52.0" layoutY="242.0" text="Senha" />
-      <JFXButton fx:id="btnCad" layoutX="23.0" layoutY="313.0" onAction="#cadCliente_Action" prefHeight="17.0" prefWidth="95.0" text="Cadastrar" />
-      <JFXButton fx:id="btnLogar" layoutX="123.0" layoutY="313.0" onAction="#cadLogar_Action" prefHeight="17.0" prefWidth="95.0" text="Logar" />
+      <JFXButton fx:id="btnCad" disable="true" layoutX="22.0" layoutY="357.0" onAction="#cadCliente_Action" prefHeight="17.0" prefWidth="95.0" text="Cadastrar" />
+      <JFXButton fx:id="btnLogar" layoutX="122.0" layoutY="357.0" onAction="#cadLogar_Action" prefHeight="17.0" prefWidth="95.0" text="Logar" />
+      <Label fx:id="txtMensagemErro" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="305.0" prefHeight="44.0" prefWidth="197.0" textFill="#ff2b00" />
    </children>
 </AnchorPane>

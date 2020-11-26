@@ -8,27 +8,65 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import controllers.CadClienteController;
+import controllers.ClienteController;
 import daos.ClienteDAO;
 import entitys.Cliente;
-import exceptions.InsertFalhouException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import utils.Alerts;
 import utils.ConexaoMySql;
-import utils.TrocarScene;
 
-public class CadClienteView {
+public class CadClienteView implements Initializable {
 
-	CadClienteController controller;
+	ClienteController controller;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		addListener(txtNome);
+		addListener(txtDocumento);
+		addListener(txtTelefone);
+		txtSenha.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+				if (verificarCampos()) {
+					btnCad.setDisable(true);
+				} else {
+					btnCad.setDisable(false);
+				}
+			}
+		});
+	}
 
 	public CadClienteView() {
 		try {
-			controller = new CadClienteController(new ClienteDAO(ConexaoMySql.getInstance().getConnection()));
+			controller = new ClienteController(new ClienteDAO(ConexaoMySql.getInstance().getConnection()));
 		} catch (ClassNotFoundException | SQLException e) {
 			Alerts.alertErro("Erro grave", "pelo jeito", "travou o conector com mysql");
 			e.printStackTrace();
 		}
+	}
+	
+	private void addListener(JFXTextField campo) {
+		campo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+				if (verificarCampos()) {
+					btnCad.setDisable(true);
+				} else {
+					btnCad.setDisable(false);
+				}
+			}
+		});
+	}
+	
+	private Boolean verificarCampos() {
+		String msg = controller.verificarCampos(txtNome.getText(), txtDocumento.getText(), txtTelefone.getText(), txtSenha.getText());
+		txtMensagemErro.setText(msg);
+		return msg.length() > 0;
 	}
 
 	@FXML
@@ -56,12 +94,15 @@ public class CadClienteView {
 	private JFXButton btnLogar;
 
 	@FXML
+    private Label txtMensagemErro;
+	
+	@FXML
 	void cadCliente_Action(ActionEvent event) {
 		try {
 			controller.inserirCliente(new Cliente(1, txtNome.getText(), txtDocumento.getText(),
 					txtTelefone.getText(), txtSenha.getText()), event);
 		} catch (Exception e) {
-			Alerts.alertErro("Algo deu errado", "Alguma coisa impediu o cadastro", "Erro" + e.getMessage()).showAndWait();
+			Alerts.alertErro("Algo deu errado", "Alguma coisa impediu o cadastro", "Erro" + e.getMessage());
 		}
 	}
 

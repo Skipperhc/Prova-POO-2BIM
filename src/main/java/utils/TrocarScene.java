@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import views.HomeView;
 
 public class TrocarScene {
 	public void trocar(ActionEvent event, String path) {
@@ -15,6 +16,7 @@ public class TrocarScene {
 			Scene scene = new Scene(parent);
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
+			stage.centerOnScreen();
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.show();
 		} catch (Exception e) {
@@ -27,6 +29,7 @@ public class TrocarScene {
 			Scene scene = new Scene(fxml.load());
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setScene(scene);
+			stage.centerOnScreen();
 			stage.initStyle(StageStyle.TRANSPARENT);
 			stage.show();
 		} catch (Exception e) {

@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -23,23 +24,26 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import utils.Alerts;
+import utils.TrocarScene;
 
 public class PrincipalView implements Initializable {
 
 	private ArrayList<Painel> listaDePaineis = new ArrayList<>();
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		criaDadosListView();
-		
-		Pane pane = carregaFXML("/views/Home.fxml");
-		borderPane.setCenter(pane);
-		
+		try {
+			carregaFXML(new Painel("Home", "/views/Home.fxml"));
+		} catch (Exception e) {
+			Alerts.alertErro("Erro ao trocar para home", "No contrutor da classe", e.getMessage());
+		}
+
 		listaAcoes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Painel>() {
 			@Override
 			public void changed(ObservableValue<? extends Painel> arg0, Painel arg1, Painel arg2) {
-				Pane pane = carregaFXML(arg2.FXML);
-				borderPane.setCenter(pane);
+				Pane pane = carregaFXML(arg2);
 			}
 		});
 	}
@@ -49,49 +53,54 @@ public class PrincipalView implements Initializable {
 		listaDePaineis.add(new Painel("Login", "/views/Login.fxml"));
 		listaDePaineis.add(new Painel("Cadastrar cliente", "/views/CadCliente.fxml"));
 		listaDePaineis.add(new Painel("Gravar processador", "/views/CadProcessador.fxml"));
+		listaDePaineis.add(new Painel("Cadastrar Funcionario", "/views/CadFuncionario.fxml"));
 
 		listaAcoes.setItems(FXCollections.observableArrayList(listaDePaineis));
 	}
-	
+
 	public void sair(ActionEvent event) {
 		Login.getPrimaryStage().close();
 	}
-	
+
 	@FXML
 	void menuItemCadPessoa_Action(ActionEvent event) {
-		Pane pane = carregaFXML("/views/CadCliente.fxml");
-		borderPane.setCenter(pane);
+		Pane pane = carregaFXML(new Painel("Cadastrar cliente", "/views/CadCliente.fxml"));
+		mudarPanePrincipal(pane);
 	}
-	
+
 	@FXML
 	void menuItemCadProduto_Action(ActionEvent event) {
-		Pane pane = carregaFXML("/views/CadProcessador.fxml");
-		borderPane.setCenter(pane);
+		Pane pane = carregaFXML(new Painel("Cadastrar cliente", "/views/CadProcessador.fxml"));
+		mudarPanePrincipal(pane);
 	}
 
 	public void mudarPanePrincipal(Pane pane) {
 		borderPane.setCenter(pane);
 	}
-	
+
 	@FXML
 	void Deslogar_Action(ActionEvent event) {
-		
+
 	}
-	
+
 	@FXML
 	void Sair_Action(ActionEvent event) {
 		sair(event);
 	}
 
-	private Pane carregaFXML(String fxml) {
+	private Pane carregaFXML(Painel painel) {
 		try {
-			return FXMLLoader.load(getClass().getResource(fxml));
+			FXMLLoader fxml = new FXMLLoader(getClass().getResource(painel.FXML));
+			if(painel.identificacao.equals("Home")) {
+				fxml.setController(new HomeView(this));
+			}
+			mudarPanePrincipal(fxml.load());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@FXML
 	private ResourceBundle resources;
 
@@ -131,7 +140,6 @@ public class PrincipalView implements Initializable {
 	@FXML
 	private TableColumn<Produto, Produto> cDetalhes;
 
-
 	private class Painel {
 		private String identificacao;
 		private String FXML;
@@ -148,7 +156,7 @@ public class PrincipalView implements Initializable {
 		}
 
 	}
-	
+
 	@FXML
 	void initialize() {
 		assert borderPane != null : "fx:id=\"borderPane\" was not injected: check your FXML file 'Principal.fxml'.";

@@ -8,8 +8,11 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import controllers.MemoriaController;
 import controllers.ProcessadorController;
 import daos.ProcessadorDAO;
+import daos.interfaces.IMemoriaDAO;
+import daos.interfaces.IProcessadorDAO;
 import entitys.Processador;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,9 +25,9 @@ import javafx.scene.layout.AnchorPane;
 import utils.Alerts;
 import utils.ConexaoMySql;
 
-public class CadProcessadorView implements Initializable {
+public class CadMemoriaView implements Initializable {
 
-	ProcessadorController controller;
+	MemoriaController controller;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -58,9 +61,9 @@ public class CadProcessadorView implements Initializable {
 		});
 	}
 
-	public CadProcessadorView() {
+	public CadMemoriaView() {
 		try {
-			controller = new ProcessadorController(new ProcessadorDAO(ConexaoMySql.getInstance().getConnection()));
+			controller = new MemoriaController(new MemoriaDAO(ConexaoMySql.getInstance().getConnection()));
 		} catch (Exception e) {
 			Alerts.alertErro("Erro grave", "pelo jeito", "travou o conector com mysql");
 			e.printStackTrace();
