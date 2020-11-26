@@ -80,7 +80,7 @@ public class HomeView implements Initializable {
 				if (tipo.equals(EnumProcessador.processador.name())) {
 					FXMLLoader fxml = new FXMLLoader(getClass().getResource("/views/EditarProcessador.fxml"));
 					fxml.setController(new EditarProcessadorView(principalView, produto.getCod()));
-					principalView.mudarPanePrincipal(fxml.load());
+					principalView.mudarPanePrincipal("" ,fxml.load());
 				}
 				if (tipo.equals(EnumMemoria.memoria.name())) {
 					//TODO: trocar tela para editar Memoria

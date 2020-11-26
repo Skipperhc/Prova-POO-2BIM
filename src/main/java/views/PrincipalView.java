@@ -43,7 +43,7 @@ public class PrincipalView implements Initializable {
 		listaAcoes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Painel>() {
 			@Override
 			public void changed(ObservableValue<? extends Painel> arg0, Painel arg1, Painel arg2) {
-				Pane pane = carregaFXML(arg2);
+				carregaFXML(arg2);
 			}
 		});
 	}
@@ -51,9 +51,9 @@ public class PrincipalView implements Initializable {
 	private void criaDadosListView() {
 		listaDePaineis.add(new Painel("Home", "/views/Home.fxml"));
 		listaDePaineis.add(new Painel("Login", "/views/Login.fxml"));
-		listaDePaineis.add(new Painel("Cadastrar cliente", "/views/CadCliente.fxml"));
 		listaDePaineis.add(new Painel("Gravar processador", "/views/CadProcessador.fxml"));
 		listaDePaineis.add(new Painel("Cadastrar Funcionario", "/views/CadFuncionario.fxml"));
+		listaDePaineis.add(new Painel("Listar funcionários", "/views/ListaFuncionario.fxml"));
 
 		listaAcoes.setItems(FXCollections.observableArrayList(listaDePaineis));
 	}
@@ -64,17 +64,19 @@ public class PrincipalView implements Initializable {
 
 	@FXML
 	void menuItemCadPessoa_Action(ActionEvent event) {
-		Pane pane = carregaFXML(new Painel("Cadastrar cliente", "/views/CadCliente.fxml"));
-		mudarPanePrincipal(pane);
+		carregaFXML(new Painel("Cadastrar cliente", "/views/CadCliente.fxml"));
 	}
 
 	@FXML
 	void menuItemCadProduto_Action(ActionEvent event) {
-		Pane pane = carregaFXML(new Painel("Cadastrar cliente", "/views/CadProcessador.fxml"));
-		mudarPanePrincipal(pane);
+		carregaFXML(new Painel("Cadastrar cliente", "/views/CadProcessador.fxml"));
 	}
 
-	public void mudarPanePrincipal(Pane pane) {
+	public void mudarPanePrincipal(String nomeTela, Pane pane) {
+//		for(Painel p : listaDePaineis) {
+//			if(p.identificacao.equals(nomeTela));
+//			listaAcoes.getSelectionModel().select(p);
+//		}
 		borderPane.setCenter(pane);
 	}
 
@@ -88,17 +90,22 @@ public class PrincipalView implements Initializable {
 		sair(event);
 	}
 
-	private Pane carregaFXML(Painel painel) {
+	private void carregaFXML(Painel painel) {
 		try {
 			FXMLLoader fxml = new FXMLLoader(getClass().getResource(painel.FXML));
-			if(painel.identificacao.equals("Home")) {
+			if (painel.identificacao.equals("Home")) {
 				fxml.setController(new HomeView(this));
 			}
-			mudarPanePrincipal(fxml.load());
+			if (painel.identificacao.equals("Cadastrar Funcionario")) {
+				fxml.setController(new CadFuncionarioView(this));
+			}
+			if (painel.identificacao.equals("Listar funcionários")) {
+				fxml.setController(new ListarFuncionarioView(this));
+			}
+			borderPane.setCenter(fxml.load());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@FXML

@@ -55,7 +55,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 
 			statementFuncionario.setInt(1, resultSet.getInt(EnumPessoa.cod.name()));
 			statementFuncionario.setString(2, obj.getCargo());
-			statementFuncionario.setInt(2, obj.getAcesso());
+			statementFuncionario.setInt(3, obj.getAcesso());
 
 			if (statementFuncionario.executeUpdate() != 1)
 				throw new InsertFalhouException("Não foi possivel inserir o Funcionario");
@@ -73,6 +73,11 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 	public int editar(Funcionario obj) {
 		String sqlPessoa = String.format("update %s set %s =?, %s =?, %s =?, %s =? where %s =?", EnumPessoa.pessoa,
 				EnumPessoa.nome, EnumPessoa.documento, EnumPessoa.telefone, EnumPessoa.senha, EnumPessoa.cod);
+		
+		if(obj.getSenha().equals("")) {
+			sqlPessoa = String.format("update %s set %s =?, %s =?, %s =? where %s =?", EnumPessoa.pessoa,
+					EnumPessoa.nome, EnumPessoa.documento, EnumPessoa.telefone, EnumPessoa.cod);
+		}
 
 		String sqlFuncionario = String.format("update %s set %s =?, %s =? where %s =?", EnumFuncionario.funcionario, EnumFuncionario.cargo, EnumFuncionario.acesso,
 				EnumFuncionario.pessoa_cod);
@@ -86,8 +91,12 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 			statementPessoa.setString(1, obj.getNome());
 			statementPessoa.setString(2, obj.getDocumento().replaceAll("[^0-9]+", ""));
 			statementPessoa.setString(3, obj.getTelefone().replaceAll("[^0-9]+", ""));
-			statementPessoa.setString(4, obj.getSenha());
-			statementPessoa.setInt(5, obj.getCod());
+			if(obj.getSenha().equals("")) {
+				statementPessoa.setInt(4, obj.getCod());
+			} else {
+				statementPessoa.setString(4, obj.getSenha());
+				statementPessoa.setInt(5, obj.getCod());
+			}
 
 			statementFuncionario.setString(1, obj.getCargo());
 			statementFuncionario.setInt(2, obj.getAcesso());
@@ -110,7 +119,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
 	}
 
 	public int deletar(Integer cod) {
-		String sql = String.format("update from %s set %s ='N' where %s = ?", EnumPessoa.pessoa, EnumPessoa.ativo,
+		String sql = String.format("update %s set %s ='N' where %s = ?", EnumPessoa.pessoa, EnumPessoa.ativo,
 				EnumPessoa.cod);
 
 		try (PreparedStatement statement = conexao.prepareStatement(sql);) {
